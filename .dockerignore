@@ -1,0 +1,53 @@
+# Fichiers Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Environnements virtuels
+venv/
+env/
+ENV/
+
+# MLflow
+mlruns/
+mlflow.db
+mlartifacts/
+
+# Données et notebooks
+*.csv
+*.ipynb
+.ipynb_checkpoints/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Scripts non nécessaires dans l'image
+generate_data.py
+train_mlflow.py
+register_model.py
+load_champion.py
+deplacer_alias.py
+export_champion.py
+test_api.py
+churn_model.ipynb
+
+# Documentation
+README.md
+*.md
