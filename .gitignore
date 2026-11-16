@@ -25,14 +25,13 @@ mlartifacts/
 
 # Jupyter Notebook
 .ipynb_checkpoints/
-*.ipynb
 
 # Modèles exportés
 model/
-*.pkl
+model.pkl
 
-# Données
-*.csv
+# Données générées (non versionnées)
+churn_data.csv
 
 # IDE
 .vscode/
