@@ -12,7 +12,7 @@ app = FastAPI(title="Churn Prediction API")
 
 # Configuration MLflow
 MLFLOW_TRACKING_URI = os.getenv('MLFLOW_TRACKING_URI', 'sqlite:///mlflow.db')
-MODEL_URI = os.getenv('MODEL_URI', 'model')
+MODEL_URI = os.getenv('MODEL_URI', 'models:/churn-model@champion')
 
 # Chargement du modèle
 model = None
@@ -21,12 +21,7 @@ def load_model():
     global model
     try:
         mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
-        if MODEL_URI == 'model':
-            # Mode Docker : chargement depuis le dossier local
-            model = mlflow.pyfunc.load_model(MODEL_URI)
-        else:
-            # Mode MLflow : chargement depuis le registre
-            model = mlflow.pyfunc.load_model(MODEL_URI)
+        model = mlflow.pyfunc.load_model(MODEL_URI)
         print(f"✓ Modèle chargé depuis {MODEL_URI}")
     except Exception as e:
         print(f"✗ Erreur de chargement du modèle : {e}")
@@ -74,12 +69,10 @@ def predict(request: PredictionRequest):
     abonnement_map = {'Basic': 0, 'Premium': 2, 'Gold': 1}
     abonnement_encoded = abonnement_map[request.abonnement]
     
-    # Préparation des features
-    # Note : adapter selon les features du modèle
+    # Préparation des features (sans salaire pour l'essai 3)
     try:
         input_data = pd.DataFrame({
             'age': [request.age],
-            'salaire': [request.salaire],
             'abonnement_encoded': [abonnement_encoded],
             'anciennete': [request.anciennete],
             'consommation': [request.consommation]

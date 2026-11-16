@@ -82,7 +82,12 @@ for exp in experiments:
         mlflow.log_metric("recall", recall)
         mlflow.log_metric("f1", f1)
         
-        mlflow.sklearn.log_model(model, "model")
+        # Enregistrer le modèle avec les types de confiance
+        mlflow.sklearn.log_model(
+            model, 
+            "model",
+            skops_trusted_types=["sklearn.tree._tree.Tree"]
+        )
         
         print(f"✓ {exp['name']} : accuracy={accuracy:.2f}, f1={f1:.2f}")
 
